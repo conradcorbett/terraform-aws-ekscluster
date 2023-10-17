@@ -12,3 +12,7 @@ output "vpc" {
     vpc_cidr_block = module.vpc.vpc_cidr_block
   }
 }
+
+output "next_steps" {
+  value = "aws eks --region ${var.vpc_region} --name ${module.eks.cluster_id}"
+}
