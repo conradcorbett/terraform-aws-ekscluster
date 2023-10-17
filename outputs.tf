@@ -14,5 +14,5 @@ output "vpc" {
 }
 
 output "next_steps" {
-  value = "aws eks --region ${var.vpc_region} --name ${module.eks.cluster_id}"
+  value = "aws eks --region ${var.vpc_region} update-kubeconfig --name ${module.eks.cluster_id}"
 }
