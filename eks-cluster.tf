@@ -84,10 +84,11 @@ module "eks" {
 
 # Uninstalls consul resources (API Gateway controller, Consul-UI, and AWS ELB, and removes associated AWS resources)
 # on terraform destroy
-#resource "null_resource" "kubernetes_consul_resources" {
-#  provisioner "local-exec" {
-#    when    = destroy
-#    command = "kubectl delete svc/consul-ui --namespace consul && kubectl delete svc/api-gateway --namespace consul"
-#  }
-#  depends_on = [module.eks]
-#}
+resource "null_resource" "kubernetes_consul_resources" {
+  provisioner "local-exec" {
+    when    = destroy
+    command = "kubectl delete svc/consul-ui --namespace consul && kubectl delete svc/api-gateway --namespace consul"
+    on_failure = continue
+  }
+  depends_on = [module.eks]
+}
